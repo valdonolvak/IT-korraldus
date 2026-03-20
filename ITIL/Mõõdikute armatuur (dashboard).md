@@ -166,7 +166,7 @@ Absoluutselt! Allpool on **Mõõdikute armatuuri lühendite sõnastik**—eesti-
 ### Kiirkokkuvõtted ja praktilised tõlgendused
 
 *   **SLI vs SLO vs SLA**
-    *   **SLI** = „mida me tegelikult mõõdame“ (toorandmete põhine näitaja).
+    *   **SLI** = „mida me tegelikult mõõdame“ (algandmete põhine näitaja).
     *   **SLO** = „siht“, millest allapoole ei taheta langeda (nt kättesaadavus ≥ 99%).
     *   **SLA** = „leping“, kus sihid on juriidiliselt kokku lepitud (trahvid/kompensatsioonid).  
         *Praktikas*: kooliprojekti faasis kasuta **SLO‑sid** ja raporteeri nende täitmist; kui tegu oleks päris kliendiga, vormistaksid **SLA**.
