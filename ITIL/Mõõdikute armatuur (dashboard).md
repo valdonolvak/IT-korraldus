@@ -132,4 +132,60 @@
 - **Sagedus.** Nädalane „ops health“ raport; kuine SLO aruanne.
 - **Rollid.** Teenuseomanik (Service Owner) koondab; tehnilised omanikud per teenus.
 - **Pidev parendamine.** Iga kõrvalekalle → „improvement item“ Kanbanis; prioriteet väärtusmõjult. [1](https://onedrive.live.com/personal/f51c2e2b4e1508fd/_layouts/15/doc.aspx?resid=372fc7f1-eb41-474b-81d4-6d29968d6cf0&cid=f51c2e2b4e1508fd)
+
 ``
+## Sõnastik (lühendid ja mõisted)
+
+Absoluutselt! Allpool on **Mõõdikute armatuuri lühendite sõnastik**—eesti- ja ingliskeelsed täisnimed koos lühikese selgitusega, mida iga mõiste tähendab ja kuidas seda praktikas tõlgendada/mõõta. Saad selle plokina lisada oma `Mõõdikute armatuur` faili lõppu eraldi peatükina “**Sõnastik**”.
+
+***
+
+## Sõnastik (mõõdikud ja lühendid)
+
+| Lühend        | Täisnimi (ET)                         | Full name (EN)                                   | Lühiselgitus (mis & kuidas mõõta/tõlgendada)                                                                                                                                                                             |
+| ------------- | ------------------------------------- | ------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **SLI**       | Teenuse taseme indikaator             | **Service Level Indicator**                      | Konkreetne **mõõdetav näitaja** teenuse käitumisest (nt kättesaadavus %, p90 vastusaeg). SLI on **toores mõõtmine**: kogud numbrid andmeallikatest (Zabbix, SIEM, logid) ja arvutad väärtuse määratletud ajavahemikus.   |
+| **SLO**       | Teenusetaseme eesmärk                 | **Service Level Objective**                      | **Sihtväärtus SLI‑le** (nt „kättesaadavus ≥ 99% tööpäeviti 08–18“). SLO ei ole leping, vaid **eesmärk**, mille täitmist jälgitakse ja millest kõrvalekalded käivitavad parendusalgatused.                                |
+| **SLA**       | Teenusleping                          | **Service Level Agreement**                      | **Lepinguline kokkulepe** teenusetasemetest ja sanktsioonidest/kompensatsioonidest. Praktika tööraames kasuta pigem SLO‑sid; SLA on formaalne leping (vajalik päriskeskkonnas).                                          |
+| **MTTD**      | Keskmine avastamise aeg               | **Mean Time To Detect**                          | Keskmine aeg **rikkest** või **intsidendist** **esimese usaldusväärse tuvastuseni** (häire/alert). Arvutus: keskmine( `tuvastuse_aeg – rikke_algus` ). Väiksem on parem; sõltub jälgimise katvusest ja häirelävenditest. |
+| **MTTR**      | Keskmine taastamise aeg               | **Mean Time To Restore/Repair/Resolve**          | Keskmine aeg **teenuse taastamiseni** (või vea lahenduseni) alates rikke algusest. Arvutus: keskmine( `taastumise_aeg – rikke_algus` ). Mõõdab operatiivset efektiivsust; eesmärk on trendi vähendada.                   |
+| **RPO**       | Taastepunkti eesmärk                  | **Recovery Point Objective**                     | **Maksimaalne lubatud andmekadu ajas** (nt 24 h). Kui RPO=24h, peavad varukoopiad olema vähemalt kord ööpäevas, et halvimal juhul kaoks ≤ 24 h andmeid.                                                                  |
+| **RTO**       | Taastamisaja eesmärk                  | **Recovery Time Objective**                      | **Maksimaalne lubatud seisakuaeg** kuni teenuse taastumiseni (nt 4 h). Mõjutab varunduse/testtaaste protseduuri, personali ja automatiseerimise taset.                                                                   |
+| **p90 / p95** | 90./95. protsentiil                   | **90th/95th percentile**                         | Näitab, millise väärtuse **90%/95% mõõtmistest ei ületa** (nt vastusaeg). Protsentiil on parem kui lihtne keskmine, sest **ignoreerib ekstreeme** ja peegeldab enamiku kasutajate kogemust.                              |
+| **Uptime**    | Töövalmidus / Kättesaadavus           | **Uptime / Availability**                        | Aeg, mil teenus oli **kasutatav** (UP). Arvutus (lihtsustatud): `(UP aeg / koguaeg) × 100%` kindla mõõteakna sees. Täpsusta tööaknad (nt 08–18) ja välista planeeritud hooldus, kui nii on kokkulepitud.                 |
+| **EPS**       | Sündmusi sekundis                     | **Events Per Second**                            | SIEM‑i **logimahu kiirus** (nt Wazuh/Graylog). Aitab hinnata **läbilaskevõimet** ja hoiatada logitormidest või anomaaliatest.                                                                                            |
+| **MFA**       | Mitmefaktoriline autentimine          | **Multi‑Factor Authentication**                  | Turvameede, mis nõuab lisaks paroolile teist faktorit (kood, FIDO võti). Mõõdikuna kasuta **MFA kasutuse määra** (% kasutajaid/võtmerolle).                                                                              |
+| **RBAC**      | Rollipõhine ligipääsukontroll         | **Role‑Based Access Control**                    | Õigused määratakse rollide kaudu, mitte üksikutele isikutele. Mõõda nt **„admin‑rollide osakaal“**, **„käsitsi erandite“ arv**.                                                                                          |
+| **CI/CD**     | Pidev integratsioon / pidev tarnimine | **Continuous Integration / Continuous Delivery** | Automatiseeritud ehitus/test/juurutus. Armatuuri kontekstis mõõda nt **deploy success rate** või **rollbackide arv**.                                                                                                    |
+| **API**       | Rakendusliidese programm              | **Application Programming Interface**            | Süsteemiliides mõõdikute/oleku pärimiseks (nt Proxmox, Portainer API). Kasuta armatuuri andmeallikana.                                                                                                                   |
+| **DB**        | Andmebaas                             | **Database**                                     | Mõõdikud: päringu **latents** (p90), vigade % ja ühenduste arv—aitavad hinnata jõudlust ja ressursside vajadust.                                                                                                         |
+| **HTTP**      | Hüpperteksti edastusprotokoll         | **Hypertext Transfer Protocol**                  | Teenuse „elutervise“ kontroll (HTTP 200) ja **vastusajad**; armatuuris kasutatakse nii **UP/Down** kui **latentsi** mõõtmiseks.                                                                                          |
+
+***
+
+### Kiirkokkuvõtted ja praktilised tõlgendused
+
+*   **SLI vs SLO vs SLA**
+    *   **SLI** = „mida me tegelikult mõõdame“ (toorandmete põhine näitaja).
+    *   **SLO** = „siht“, millest allapoole ei taheta langeda (nt kättesaadavus ≥ 99%).
+    *   **SLA** = „leping“, kus sihid on juriidiliselt kokku lepitud (trahvid/kompensatsioonid).  
+        *Praktikas*: kooliprojekti faasis kasuta **SLO‑sid** ja raporteeri nende täitmist; kui tegu oleks päris kliendiga, vormistaksid **SLA**.
+
+*   **RPO vs RTO**
+    *   **RPO** mõõdab **andmekadu** (kui „vana“ varukoopia võib kõige halvemal juhul olla).
+    *   **RTO** mõõdab **aega teenuse taastamiseni** (kui kaua võib teenus maas olla).  
+        *Praktikas*: Kui RPO = 24 h ja RTO = 4 h, siis varunda vähemalt kord päevas ja **harjuta** taastamist nii, et jõuad 4 tunniga sihile.
+
+*   **p90/p95**
+    *   Keskendumine protsentiilidele annab realistliku pildi **enamiku kasutajate** kogemusest.
+    *   Kui p90 vastusaeg on 280 ms, siis 90% päringutest on **kiiremad kui 280 ms**—hea, kuid jälgi ka sabasid (p99), kui vaja.
+
+*   **MTTD/MTTR**
+    *   **MTTD** sõltub **katvusest ja häirelävenditest**— liiga madal lävend = false positive; liiga kõrge lävend = hiline avastus.
+    *   **MTTR** paraneb läbi **automatiseeritud taastetoimingute** (protseduurid, skriptid, runbook’id) ja **õigete eskalatsioonide**.
+
+*   **EPS (SIEM)**
+    *   Äkiline EPS tõus võib viidata **rünnakule** või **logitormile** (nt vigase agendi lõputu retry). Kasuta lävendi‑hoiatusi ja sujuvat „rate limiting’ut“.
+
+***
+
